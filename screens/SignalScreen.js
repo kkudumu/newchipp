@@ -1,40 +1,57 @@
 import React from 'react';
 import { StyleSheet, Text, Image, KeyboardAvoidingView, Dimensions } from 'react-native';
-import { Form, Item, Input, Button } from 'native-base';
+import { Form, Item, Input, Button, View } from 'native-base';
 
 
 var width = Dimensions.get('window').width;
 var height = Dimensions.get('window').height;
 
-export default class App extends React.Component {
+export default class SignalScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        
         <Image 
         source={require('../assets/chipp_startup_solution.jpg')} 
         style={styles.imageStyle}
         />
+
           <Form>
             <Item style={styles.inputStyle}>
-              <Input placeholder="username" />
+              <Input placeholder="email" />
             </Item>
             <Item style={styles.inputStyle}>
               <Input placeholder="password" />
             </Item>
           </Form>
-        
+
+          
+          <Button transparent style={{flexDirection: 'row', alignSelf:'flex-end', marginRight:10}}>
+          <Text style={{color:'blue'}}>Forgot Password?</Text>
+          </Button>
+          
+
           <Button
            style ={{width:width/1.1, alignSelf:'center', marginTop: 10}}
            block info>
             <Text style={{color: 'white'}}>Log In</Text>
           </Button>
 
-          <Text>Don't have an account? Sign Up.</Text>
+          <View style={{flexDirection:'row'}}>
+          <Text style={{marginTop:14}}>Don't have an account?</Text>
+          <Button transparent> 
+          <Text style={{color:'blue'}}> Sign Up.</Text>
+          </Button>
+          </View>
+          
 
       </KeyboardAvoidingView>
     );
   }
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {

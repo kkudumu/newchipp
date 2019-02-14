@@ -30,6 +30,7 @@ export default class ForgotPasswordScreen extends React.Component {
           </Button>
           <Button
            style ={{width:width/1.1, alignSelf:'center', marginTop: 20}}
+           onPress={() => this.props.navigation.navigate('LoginScreen')}
            block info>
             <Text style={{color: 'white'}}>Cancel</Text>
           </Button>

@@ -1,16 +1,17 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import  {DrawerAction, withNavigation} from 'react-navigation';
 
 export default class MenuButton extends React.Component {
     render(){
         return(
             <Ionicons
                 name="md-menu"
-                color="#000000"
+                color="white"
                 size={32}
                 style={styles.menuIcon}
-                onPress={()=>{}}
+                onPress={() => {}}
             />
         )
     }
@@ -20,7 +21,8 @@ const styles = StyleSheet.create({
     menuIcon: {
         zIndex: 9,
         position: 'absolute',
-        top:40,
-        left:20
+        bottom:10,
+        left: 15,
+        fontSize:40
     }
 })

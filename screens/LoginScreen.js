@@ -41,14 +41,19 @@ export default class LoginScreen extends React.Component {
 
           <Button
            style ={{width:width/1.1, alignSelf:'center', marginTop: 10}}
-           block info>
+           onPress={() => this.props.navigation.navigate('SignalScreen')}
+           block info
+           
+           >
             <Text style={{color: 'white'}}>Log In</Text>
           </Button>
 
           <View style={{flexDirection:'row'}}>
           <Text style={{marginTop:14}}>Don't have an account?</Text>
           <Button 
-          transparent> 
+          transparent
+          onPress={() => this.props.navigation.navigate('SignUpScreen')}
+          > 
           <Text style={{color:'blue'}}> Sign Up.</Text>
           </Button>
           </View>

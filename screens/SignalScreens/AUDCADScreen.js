@@ -3,11 +3,17 @@ import { StyleSheet, Dimensions, View, Platform } from 'react-native';
 import { Container, Header, Content, Button, List, ListItem, Text, Thumbnail, Icon, Drawer } from 'native-base';
 import { Col,Grid } from 'react-native-easy-grid';
 import { DrawerActions } from 'react-navigation';
-import MenuButton from '../components/MenuButton';
+import * as firebase from 'firebase';
+import {f, auth, database, firestore} from '../../config/config';
+import 'firebase/firestore';
+import MenuButton from '../../components/MenuButton';
+
+
 
 
 var width = Dimensions.get('window').width;
 var height = Dimensions.get('window').height;
+var AUDCADRef = firestore.collection('Currencies').doc('AUDCAD').collection('Legs');
 
 //Work on getting Navigation Drawer to work. then work on getting users logged in, then work on the upload stuff. Then get the menu added
 
@@ -28,19 +34,53 @@ var height = Dimensions.get('window').height;
 
 //be able to edit lines
 
-export default class SignalScreen extends React.Component {
+
+      
+
+
+export default class AUDCADScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    // header: null,
 }
+componentDidMount(){
+  console.log('component DID mount!')
+
+  const Leg2Ref = firestore.collection('Currencies').doc('AUDCAD').collection('Legs').doc('Leg 2')
+  const query = firestore.collection('Currencies').doc('AUDCAD').collection('Legs').where('leg', '==', 'Leg 1').get()
+    .then(querySnapshot => {
+      if(querySnapshot.empty){
+        console.log('Snapshot is empty')
+      }
+
+      querySnapshot.docs.forEach(document => {
+        if(document.exists){
+          //get value from each field in document
+          console.log(document.id, "=>", document.data())
+          //get field from document
+          console.log(document.data().order)
+          
+          //generate list item based on each field
+          // console.log(JSON.parse(document._document.data.toString()))
+          
+        } else {
+          console.log('document does not exist')
+        }
+      })
+    })
+}
+
   render() {
+    
+    
     return (
+
 
       <Container>
         <Header
         style={styles.header}
          >
         {/* Put currency name in header instead of signals */}
-         <Text style={{color:'white',fontSize:30}}>EURJPY</Text>
+         <Text style={{color:'white',fontSize:30}}>AUDCAD</Text>
  
           <MenuButton/>   
  
@@ -58,9 +98,11 @@ export default class SignalScreen extends React.Component {
       
         <Content>
 
-          <List>         
+          <List> 
+          {/* If firebase is updated, create list item with variables */}
+                  
            <ListItem style={{justifyContent:'center'}} itemHeader first>
-              <Text style={{fontSize:20, position:'absolute', left:10 }}>Leg </Text>
+              <Text style={{fontSize:20, position:'absolute', left:10 }}></Text>
               <Text style={{fontSize:20, position:'absolute', left:55, fontWeight:'bold' }}>1 </Text>
               <Text style={{fontSize:20, position:'absolute', right:85}}>Direction</Text>
               <Text style={{fontSize:20, position:'absolute', right:10, fontWeight:'bold' }}> Long </Text>
